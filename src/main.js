@@ -27,6 +27,33 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
+Vue.directive('permission', {
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted(el, binding, node) {
+    const { value } = binding
+    const roles = node.child.$route.meta.roles
+    if (roles.indexOf(value) >= 0) {
+      return value
+    } else {
+      el.parentNode && el.parentNode.removeChild(el) 
+    } //使用方式： v-permission="'add'"
+    
+    // if (value && value instanceof Array && value.length > 0) {
+    //   const permissionRoles = value
+    //   const hasPermission = roles.some(role => {
+    //     return permissionRoles.includes(role)
+    //   })
+
+    //   if (!hasPermission) {
+    //     el.parentNode && el.parentNode.removeChild(el)
+    //   }
+    // } else {
+    //   throw new Error(`使用方式： v-permission="['admin','editor']"`)
+    // }
+  }
+})
+
+
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明

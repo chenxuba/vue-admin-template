@@ -119,11 +119,21 @@ const actions = {
             path: '/table1',
             name: 'table1',
             component: 'dashboard/index',
-            role: ['editor'],
             // form前加不加 /，取决于你的router/_import_  文件中的@/view、后面是否有/
             meta: {
               title: '店铺装修',
               icon: 'table'
+            }
+          },
+          {
+            path: '/roles',
+            name: 'roles',
+            component: 'roles/index',
+            // form前加不加 /，取决于你的router/_import_  文件中的@/view、后面是否有/
+            meta: {
+              title: '角色管理',
+              icon: 'table',
+              roles:['edit','delete','add']
             }
           }
           ]
@@ -149,7 +159,7 @@ const actions = {
         commit('SET_NAME', nickname) // 触发vuex SET_NAME 保存名字到vuex
         commit('SET_AVATAR', headimg) // 触发vuex SET_AVATAR 保存头像到vuex
         commit('SET_MENUS', menus) // 触发vuex SET_MENUS 保存路由表到vuex
-        commit('SET_ROLES',is_vip)
+        commit('SET_ROLES', is_vip)
         resolve(data)
       }).catch(error => {
         reject(error)
