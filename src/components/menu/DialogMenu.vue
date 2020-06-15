@@ -49,7 +49,9 @@
           <el-input v-model="formData.component" style="width: 178px;" placeholder="组件路径" />
         </el-form-item>
         <!-- 选择上级类目 -->
-      
+        <el-form-item label="上级类目" prop="pid">
+          <SelectTree :options='options' @getValue='getValue' :value='101'></SelectTree>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogMenu.show = false" size="small">取 消</el-button>
@@ -60,6 +62,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'dialogmenu',
   props: {
@@ -75,20 +78,39 @@ export default {
         path: [
           { required: true, message: '请输入地址', trigger: 'blur' }
         ]
-      }
+      },
+      options: [
+
+      ]
     }
   },
   methods: {
     // 选中图标
     selected(name) {
       this.formData.icon = name
+    },
+    getValue(id) {
+      this.formData.pid = id
+      console.log(this.formData.pid);
     }
   },
   components: {
     IconSelect: resolve => {
       require(['@/components/IconSelect/index.vue'], resolve)
     },
+    SelectTree: resolve => {
+      require(['@/components/menu/SelectTree.vue'], resolve)
+    },
   },
+  mounted() {
+    axios.get("/api/roles.json").then(res => {
+      let arr = {id: 0,authName: '顶级目录'}
+      res.data.data.unshift(arr)
+      this.options = res.data.data;
+      console.log(this.options);
+    });
+  },
+
 }
 </script>
 

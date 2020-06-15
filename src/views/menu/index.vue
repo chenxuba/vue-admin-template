@@ -107,7 +107,8 @@ export default {
         path: "",
         componentName: "",
         component: "",
-        permission: ""
+        permission: "",
+        pid:""
       },
     }
   },
@@ -146,7 +147,8 @@ export default {
         path: "",
         componentName: "",
         component: "",
-        permission: ""
+        permission: "",
+        pid:""
       };
     }
   },
