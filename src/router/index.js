@@ -46,7 +46,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '控制面板', icon: 'dashboard', affix: true } // affix: true 固定 不能被关闭的tabs
+      meta: { title: '首页', icon: 'dashboard', affix: true } // affix: true 固定 不能被关闭的tabs
     }]
   },
   // 404 page must be placed at the end !!!

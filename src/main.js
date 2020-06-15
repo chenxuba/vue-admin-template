@@ -32,24 +32,24 @@ Vue.directive('permission', {
   inserted(el, binding, node) {
     const { value } = binding
     const roles = node.child.$route.meta.roles
-    if (roles.indexOf(value) >= 0) {
-      return value
-    } else {
-      el.parentNode && el.parentNode.removeChild(el) 
-    } //使用方式： v-permission="'add'"
-    
-    // if (value && value instanceof Array && value.length > 0) {
-    //   const permissionRoles = value
-    //   const hasPermission = roles.some(role => {
-    //     return permissionRoles.includes(role)
-    //   })
-
-    //   if (!hasPermission) {
-    //     el.parentNode && el.parentNode.removeChild(el)
-    //   }
+    // if (roles.indexOf(value) >= 0) {
+    //   return value
     // } else {
-    //   throw new Error(`使用方式： v-permission="['admin','editor']"`)
-    // }
+    //   el.parentNode && el.parentNode.removeChild(el) 
+    // } //使用方式： v-permission="'add'"
+    
+    if (value && value instanceof Array && value.length > 0) {
+      const permissionRoles = value
+      const hasPermission = roles.some(role => {
+        return permissionRoles.includes(role)
+      })
+
+      if (!hasPermission) {
+        el.parentNode && el.parentNode.removeChild(el)
+      }
+    } else {
+      throw new Error(`使用方式： v-permission="['admin','editor']"`)
+    }
   }
 })
 

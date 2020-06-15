@@ -15,10 +15,10 @@ import {
 const getDefaultState = () => {
   return {
     token: getToken(),
-    name: '',
-    avatar: '',
-    menus: '',
-    roles: ''
+    name: "",
+    avatar: "",
+    menus: "",
+    roles: ""
   }
 }
 
@@ -63,7 +63,7 @@ const actions = {
         const {
           data
         } = response
-        commit('SET_TOKEN', data.info.token)
+        commit("SET_TOKEN", data.info.token)
         setToken(data.info.token)
         resolve()
       }).catch(error => {
@@ -87,65 +87,210 @@ const actions = {
           reject('验证失败，请重新登录')
         }
         // 模拟请求数据
-        const menus = [{
-          path: '/a',
-          redirect: '/form',
-          component: 'Layout',
-          meta: {
-            title: '系统管理',
-            icon: 'form'
-          },
-          children: [{
-            path: '/form',
-            name: 'form',
-            component: 'dashboard/index',
-            // form前加不加 /，取决于你的router/_import_  文件中的@/view、后面是否有/
-            meta: {
-              title: '常见问题',
-              icon: 'zhifubao'
+        const menus = [
+          {
+            "path": "/system",
+            "redirect": "/menu",
+            "component": "Layout",
+            "meta": {
+              "title": "系统管理",
+              "icon": "form"
+            },
+            "children": [{
+              "path": "/menu",
+              "name": "menu",
+              "component": "dashboard/index",
+              "meta": {
+                "title": "菜单管理",
+                "icon": "table"
+              }
+            },
+            {
+              "path": "/roles",
+              "name": "roles",
+              "component": "roles/index",
+              "meta": {
+                "title": "角色管理",
+                "icon": "table",
+                "roles": ["edit", "delete", "add", "role"]
+              }
+            },
+            {
+              "path": "/administrator",
+              "name": "administrator",
+              "component": "dashboard/index",
+              "meta": {
+                "title": "用户管理",
+                "icon": "table"
+              }
+            },
+            {
+              "path": "/settings",
+              "name": "settings",
+              "component": "dashboard/index",
+              "meta": {
+                "title": "系统参数",
+                "icon": "table"
+              }
             }
+            ]
           },
           {
-            path: '/table',
-            name: 'table',
-            component: 'dashboard/index',
-            // form前加不加 /，取决于你的router/_import_  文件中的@/view、后面是否有/
-            meta: {
-              title: '关于我们',
-              icon: 'table'
-            }
+            "path": "/school",
+            "redirect": "/information",
+            "component": "Layout",
+            "meta": {
+              "title": "机构管理",
+              "icon": "form"
+            },
+            "children": [{
+              "path": "/information",
+              "name": "information",
+              "component": "dashboard/index",
+              "meta": {
+                "title": "机构信息",
+                "icon": "table"
+              }
+            },
+            {
+              "path": "/user",
+              "name": "user",
+              "component": "dashboard/index",
+              "meta": {
+                "title": "用户管理",
+                "icon": "table"
+              }
+            },
+            {
+              "path": "/teacher",
+              "name": "teacher",
+              "component": "roles/index",
+              "meta": {
+                "title": "康复师管理",
+                "icon": "table",
+                "roles": ["edit", "delete", "add", "role"]
+              }
+            },
+            {
+              "path": "/vipCard",
+              "name": "vipCard",
+              "component": "dashboard/index",
+              "meta": {
+                "title": "会员卡管理",
+                "icon": "table"
+              }
+            },
+            {
+              "path": "/schoolAdmin",
+              "name": "schoolAdmin",
+              "component": "dashboard/index",
+
+              "meta": {
+                "title": "管理员列表",
+                "icon": "table"
+              }
+            },
+            ]
           },
           {
-            path: '/table1',
-            name: 'table1',
-            component: 'dashboard/index',
-            // form前加不加 /，取决于你的router/_import_  文件中的@/view、后面是否有/
-            meta: {
-              title: '店铺装修',
-              icon: 'table'
+            "path": "/course",
+            "redirect": "/courseList",
+            "component": "Layout",
+            "meta": {
+              "title": "课程管理",
+              "icon": "form"
+            },
+            "children": [{
+              "path": "/courseList",
+              "name": "courseList",
+              "component": "dashboard/index",
+
+              "meta": {
+                "title": "课程列表",
+                "icon": "table"
+              }
+            },
+            {
+              "path": "/videoKu",
+              "name": "videoKu",
+              "component": "dashboard/index",
+
+              "meta": {
+                "title": "视频库管理",
+                "icon": "table"
+              }
+            },
+            {
+              "path": "/trainingPlan",
+              "name": "trainingPlan",
+              "component": "roles/index",
+
+              "meta": {
+                "title": "训练计划管理",
+                "icon": "table",
+                "roles": ["edit", "delete", "add", "role"]
+              }
+            },
+            {
+              "path": "/analysis",
+              "name": "analysis",
+              "component": "dashboard/index",
+
+              "meta": {
+                "title": "维度分析管理",
+                "icon": "table"
+              }
             }
+            ]
           },
           {
-            path: '/roles',
-            name: 'roles',
-            component: 'roles/index',
-            // form前加不加 /，取决于你的router/_import_  文件中的@/view、后面是否有/
-            meta: {
-              title: '角色管理',
-              icon: 'table',
-              roles:['edit','delete','add']
-            }
+            "path": "/msg",
+            "redirect": "/form",
+            "component": "Layout",
+            "meta": {
+              "title": "资讯管理",
+              "icon": "form"
+            },
+            "children": [
+              {
+                "path": "/tuiwen",
+                "name": "tuiwen",
+                "component": "dashboard/index",
+                "meta": {
+                  "title": "推文列表",
+                  "icon": "table"
+                }
+              },
+              {
+                "path": "/commonProblem",
+                "name": "commonProblem",
+                "component": "roles/index",
+                "meta": {
+                  "title": "常见问题",
+                  "icon": "table",
+                  "roles": ["edit", "delete", "add", "role"]
+                }
+              },
+              {
+                "path": "/stationLetter",
+                "name": "stationLetter",
+                "component": "dashboard/index",
+                "meta": {
+                  "title": "站内信管理",
+                  "icon": "table"
+                }
+              }
+            ]
           }
-          ]
-        }]
+        ]
         //如果需要404 页面，请在此处添加
         menus.push({
-          path: '/404',
-          component: '404',
+          path: "/404",
+          component: "404",
           hidden: true
         }, {
-          path: '*',
-          redirect: '/404',
+          path: "*",
+          redirect: "/404",
           hidden: true
         })
         // 获取到用户信息
@@ -156,10 +301,10 @@ const actions = {
           headimg,
           is_vip
         } = data.member_info // 解构出名字和头像
-        commit('SET_NAME', nickname) // 触发vuex SET_NAME 保存名字到vuex
-        commit('SET_AVATAR', headimg) // 触发vuex SET_AVATAR 保存头像到vuex
-        commit('SET_MENUS', menus) // 触发vuex SET_MENUS 保存路由表到vuex
-        commit('SET_ROLES', is_vip)
+        commit("SET_NAME", nickname) // 触发vuex SET_NAME 保存名字到vuex
+        commit("SET_AVATAR", headimg) // 触发vuex SET_AVATAR 保存头像到vuex
+        commit("SET_MENUS", menus) // 触发vuex SET_MENUS 保存路由表到vuex
+        commit("SET_ROLES", is_vip)
         resolve(data)
       }).catch(error => {
         reject(error)

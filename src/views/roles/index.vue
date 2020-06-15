@@ -9,7 +9,7 @@
           <span class='filter-item'>
             <el-button size="mini" type="success" icon="el-icon-search">搜索</el-button>
             <el-button size="mini" type="warning" icon="el-icon-refresh-left">重置</el-button>
-            <el-button size="mini" type="primary" icon="el-icon-plus" v-permission="'add'">新增</el-button>
+            <el-button size="mini" type="primary" icon="el-icon-plus" v-permission="['add']">新增</el-button>
           </span>
         </span>
         <span>
@@ -66,7 +66,7 @@
           </el-table-column>
           <el-table-column type="index" width="55" label="#" />
           <el-table-column prop="roleName" label="名称" />
-          <el-table-column prop="dataScope" label="数据权限" />
+          <el-table-column prop="dataScope" label="数据权限" v-permission="['abc']" />
           <el-table-column :show-overflow-tooltip="true" prop="roleDesc" label="描述" />
           <el-table-column :show-overflow-tooltip="true" prop="createTime" label="创建日期">
             <template slot-scope="scope">
@@ -75,9 +75,9 @@
           </el-table-column>
           <el-table-column label="操作" align="center" fixed="right" width="300">
             <template slot-scope="scope">
-              <el-button size="mini" type="primary" icon="el-icon-edit" v-permission="'edit'">编辑</el-button>
-              <el-button size="mini" type="danger" icon="el-icon-delete" v-permission="'delete'">删除</el-button>
-              <el-button size="mini" type="warning" icon="el-icon-s-tools" v-permission="'role'" @click="showSetRolesDialog(scope.row )">分配权限</el-button>
+              <el-button size="mini" type="primary" icon="el-icon-edit" v-permission="['edit']">编辑</el-button>
+              <el-button size="mini" type="danger" icon="el-icon-delete" v-permission="['delete']">删除</el-button>
+              <el-button size="mini" type="warning" icon="el-icon-s-tools" v-permission="['role']" @click="showSetRolesDialog(scope.row )">分配权限</el-button>
             </template>
           </el-table-column>
         </el-table>
