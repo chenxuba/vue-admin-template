@@ -99,10 +99,11 @@ const actions = {
             "children": [{
               "path": "/menu",
               "name": "menu",
-              "component": "dashboard/index",
+              "component": "menu/index",
               "meta": {
                 "title": "菜单管理",
-                "icon": "table"
+                "icon": "table",
+                "roles": ["edit", "delete", "add", "role"]
               }
             },
             {

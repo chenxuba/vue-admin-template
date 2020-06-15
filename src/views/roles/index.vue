@@ -66,7 +66,7 @@
           </el-table-column>
           <el-table-column type="index" width="55" label="#" />
           <el-table-column prop="roleName" label="名称" />
-          <el-table-column prop="dataScope" label="数据权限" v-permission="['abc']" />
+          <el-table-column prop="dataScope" label="数据权限" />
           <el-table-column :show-overflow-tooltip="true" prop="roleDesc" label="描述" />
           <el-table-column :show-overflow-tooltip="true" prop="createTime" label="创建日期">
             <template slot-scope="scope">
