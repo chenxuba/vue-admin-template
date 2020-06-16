@@ -89,6 +89,17 @@ const actions = {
         // 模拟请求数据
         const menus = [
           {
+            "path": '/',
+            "component": "Layout",
+            "redirect": '/dashboard',
+            "children": [{
+              "path": 'dashboard',
+              "name": 'Dashboard',
+              "component": "dashboard/index",
+              "meta": { "title": '首页', "icon": 'dashboard', "affix": "true" } // affix: true 固定 不能被关闭的tabs
+            }]
+          },
+          {
             "path": "/system",
             "redirect": "/menu",
             "component": "Layout",
