@@ -4,7 +4,12 @@
       <el-form ref="form" :inline="true" :model="formData" :rules="rules" size="small" label-width="80px">
         <!-- 菜单类型 -->
         <el-form-item label="菜单类型" prop="type">
-          <el-radio-group v-model="formData.type" size="mini" style="width: 178px">
+          <el-radio-group v-model="formData.type" size="mini" style="width: 178px" v-if="dialogMenu.option == 'edit'">
+            <el-radio-button label="0" v-if="formData.type == 0">目录</el-radio-button>
+            <el-radio-button label="1" v-if="formData.type == 1">菜单</el-radio-button>
+            <el-radio-button label="2" v-if="formData.type == 2">按钮</el-radio-button>
+          </el-radio-group>
+          <el-radio-group v-model="formData.type" size="mini" style="width: 178px" v-if="dialogMenu.option == 'add'">
             <el-radio-button label="0">目录</el-radio-button>
             <el-radio-button label="1">菜单</el-radio-button>
             <el-radio-button label="2">按钮</el-radio-button>
@@ -38,7 +43,7 @@
         </el-form-item>
         <!-- 菜单排序 -->
         <el-form-item label="菜单排序" prop="menuSort">
-          <el-input-number v-model.number="formData.menuSort" :min="0" :max="999" controls-position="right" style="width: 178px;" />
+          <el-input-number v-model.number="formData.menuSort" placeholder='数字越大越靠前' :min="0" :max="999" controls-position="right" style="width: 178px;" />
         </el-form-item>
         <!-- 组件名称 -->
         <el-form-item v-show="!formData.iframe && formData.type.toString() === '1'" label="组件名称" prop="componentName">
@@ -50,12 +55,12 @@
         </el-form-item>
         <!-- 选择上级类目 -->
         <el-form-item label="上级类目" prop="pid">
-          <SelectTree :options='options' @getValue='getValue' :value='101'></SelectTree>
+          <SelectTree :options='options' @getValue='getValue' @getValueTitle='getValueTitle' :value='formData.pid' :label='formData.ptitle'></SelectTree>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogMenu.show = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="dialogMenu.show = false" size="small">确 定</el-button>
+        <el-button type="primary" @click="submit" size="small">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -79,9 +84,7 @@ export default {
           { required: true, message: '请输入地址', trigger: 'blur' }
         ]
       },
-      options: [
-
-      ]
+      options: []
     }
   },
   methods: {
@@ -89,9 +92,17 @@ export default {
     selected(name) {
       this.formData.icon = name
     },
+    // 改变上级菜单的id
     getValue(id) {
       this.formData.pid = id
-      console.log(this.formData.pid);
+    },
+    // 改变上级菜单的title
+    getValueTitle(title){
+       this.formData.ptitle = title
+    },
+    // 提交请求
+    submit(){
+      console.log(this.formData);
     }
   },
   components: {
@@ -104,7 +115,7 @@ export default {
   },
   mounted() {
     axios.get("/api/roles.json").then(res => {
-      let arr = {id: 0,authName: '顶级目录'}
+      let arr = { id: 0, authName: '顶级目录' }
       res.data.data.unshift(arr)
       this.options = res.data.data;
       console.log(this.options);

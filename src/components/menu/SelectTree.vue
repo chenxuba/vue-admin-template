@@ -1,8 +1,8 @@
 
 <template>
-  <el-select :value="valueTitle" :clearable="clearable" @clear="clearHandle" ref="selectblur" >
-    <el-option :value="valueTitle" :label="valueTitle">
-      <el-tree id="tree-option" ref="selectTree" :accordion="accordion"  :data="options" :props="props" :node-key="props.value" :default-expanded-keys="defaultExpandedKey" @node-click="handleNodeClick">
+  <el-select :value="valueTitle" :clearable="clearable" @clear="clearHandle" ref="selectblur">
+    <el-option :value="valueId" :label="valueTitle">
+      <el-tree id="tree-option" ref="selectTree" :accordion="accordion" :data="options" :props="props" :node-key="props.value" :default-expanded-keys="defaultExpandedKey" @node-click="handleNodeClick">
       </el-tree>
     </el-option>
   </el-select>
@@ -28,6 +28,12 @@ export default {
       type: Array,
       default: () => { return [] }
     },
+    value: {
+      type: Number,
+    },
+    label: {
+      type: String,
+    },
     /* 可清空选项 */
     clearable: {
       type: Boolean,
@@ -42,7 +48,7 @@ export default {
   data() {
     return {
       valueId: "",    // 初始值
-      valueTitle: '',
+      valueTitle: this.label,
       defaultExpandedKey: []
     }
   },
@@ -54,6 +60,7 @@ export default {
       this.valueTitle = node[this.props.label]
       this.valueId = node[this.props.value]
       this.$emit('getValue', this.valueId)
+      this.$emit('getValueTitle', this.valueTitle)
       this.defaultExpandedKey = []
       this.$refs.selectblur.blur();
     },
@@ -71,7 +78,7 @@ export default {
       allNode.forEach((element) => element.classList.remove('is-current'))
     }
   },
- 
+
 };
 </script>
 

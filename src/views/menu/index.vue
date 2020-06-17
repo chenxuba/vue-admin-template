@@ -53,8 +53,8 @@
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" fixed="right">
-            <template>
-              <el-button size="mini" type="primary" icon="el-icon-edit" v-permission="['edit']">编辑</el-button>
+            <template slot-scope="scope">
+              <el-button size="mini" type="primary" icon="el-icon-edit" @click="handleEdit(scope.row)" v-permission="['edit']">编辑</el-button>
               <el-button size="mini" type="danger" icon="el-icon-delete" v-permission="['delete']">删除</el-button>
             </template>
           </el-table-column>
@@ -90,6 +90,9 @@ export default {
           "hasChildren": true,
           "permission": null,
           "component": null,
+          "componentName": null,
+          "pid": 0,
+          "ptitle": "顶部菜单"
         }
       ],//顶级菜单数据
       rolesName: "",
@@ -108,7 +111,9 @@ export default {
         componentName: "",
         component: "",
         permission: "",
-        pid:""
+        pid: "",
+        menuSort: "",
+        ptitle: ""
       },
     }
   },
@@ -133,6 +138,7 @@ export default {
       const params = { pid: tree.id }
       console.log(params);
     },
+    // 新增
     handleAdd() {
       this.dialogMenu = {
         show: true,
@@ -148,7 +154,30 @@ export default {
         componentName: "",
         component: "",
         permission: "",
-        pid:""
+        pid: "",
+        menuSort: ""
+      };
+    },
+    // 编辑
+    handleEdit(row) {
+      console.log(row);
+      this.dialogMenu = {
+        show: true,
+        title: "编辑菜单",
+        option: "edit"
+      };
+      this.formData = {
+        title: row.title,
+        type: row.type,
+        icon: row.icon,
+        iframe: false,
+        path: row.path,
+        componentName: row.componentName,
+        component: row.component,
+        permission: row.permission,
+        pid: row.pid,
+        menuSort: row.menuSort,
+        ptitle: row.ptitle,
       };
     }
   },
